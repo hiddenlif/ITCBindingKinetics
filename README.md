@@ -26,9 +26,7 @@ docker run --rm -v "$PWD/app":/app itc-binding-analysis python3 /app/itcreduce.p
 
 ## Execution evidence
 
-Successful execution of this exact version was not established in the reviewed execution records.
-
-The historical evidence concerns the source version. This publication separates public inputs from private evaluation material and cleans documentation. No new task execution or model trial was performed for this publication, and the cleaned repository has not been revalidated end to end.
+On 2026-10-24 this published repository was run end to end: with the private reference installed in `app/`, the private grader found all 8 sealed experiments correct (reward 1); the unchanged starter got 0 of 8 (reward 0). These are local reference results in Docker, not blind solver results or platform approval.
 
 ## Reference and verifier
 
