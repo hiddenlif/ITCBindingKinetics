@@ -1,0 +1,35 @@
+# Scientific Analysis: ITC binding kinetics
+
+Estimate binding affinity, enthalpy, stoichiometry and association rates from supplied synthetic calorimetry exports. This task analyzes fixed traces; it does not provide interactive experimental acquisition.
+
+**Task type:** Analysis of supplied synthetic data. **Source version:** 1.0.0.
+
+All scientific specimens, measurements and instrument conditions are synthetic. These examples are not validated biological assays or clinical decision tools.
+
+## Contents
+
+- `TASK.md`: scientific task and required deliverable.
+- `app/`: public scientific model, documentation and disclosed practice inputs where supplied.
+- `Dockerfile`: the task's original dependency environment.
+
+## Use
+
+Build the environment with `docker build -t itc-binding-analysis .`.
+
+Implement `app/itcreduce.py` using `TASK.md` and `app/MANUAL.md`. Run it on the disclosed worked batch:
+
+```sh
+docker run --rm -v "$PWD/app":/app itc-binding-analysis python3 /app/itcreduce.py /app/worked /app/report.json
+```
+
+`app/worked/reported.json` contains the worked batch's supplied answers. The analysis module is the deliverable and is not included as a completed solution.
+
+## Execution evidence
+
+Successful execution of this exact version was not established in the reviewed execution records.
+
+The historical evidence concerns the source version. This publication separates public inputs from private evaluation material and cleans documentation. No new task execution or model trial was performed for this publication, and the cleaned repository has not been revalidated end to end.
+
+## Reference and verifier
+
+Reference implementations, held-out cases, expected results and grading code are kept in the private repository `science-task-solutions`, under `ITCBindingKinetics/`. They are excluded from this public repository. The public practice inputs and worked examples remain public by design.

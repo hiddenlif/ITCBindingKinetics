@@ -1,0 +1,16 @@
+ITC-200S instrument manual (excerpt for batch reduction)
+
+1. The instrument
+The ITC-200S is a power-compensation isothermal titration calorimeter with a 200 microlitre cell at 25 C. The data here are synthetic and model such an instrument.
+
+2. What the power means
+Heat released in the cell gives negative power and heat absorbed gives positive power, in microcalories per second. The stored power is a delayed and scaled report of the heat released in the cell, on a baseline that drifts and carries slow noise. A heater in the cell wall releases heat without any mixing. The heat of an injection is released while the injected solution mixes into the cell contents; the mixing is exponential in time and takes a few seconds. An injection takes place at its recorded time: the injected solution mixes with the cell contents and the surplus solution leaves the cell until the volume is the cell volume again.
+
+3. Files
+A batch directory holds the exports of one session and its run log. Every run is an `.itc` text file: header lines `# key: value`, then the line `time_s,power_ucal_s` and one row per sampling interval. The keys are `kind` (`titration`, `control` or `heater`), `cell_volume_ul`, `temperature_c`, `interval_s`, and for each injection of a titration or control a line `injection: TIME_S VOLUME_UL` (the first injection is smaller), or for each pulse of a heater run a line `pulse: START_S DURATION_S POWER_UCAL_S`. A titration injects a ligand solution from the syringe into the cell, which holds a host solution. A control makes the same injections into buffer, with no host in the cell. A heater run releases heat with the heater at the stated power for the stated time. `RUNLOG.tsv` has one tab-separated line per experiment: `exp`, `titration`, `control` and `heater` (the names of its three runs), `host_um` (host concentration in the cell) and `ligand_um` (ligand concentration in the syringe), both in micromolar.
+
+4. The system
+The host has n binding sites per molecule, all alike and independent. A ligand molecule binds to a free site and leaves an occupied one with finite rate constants, kon (1/(M s)) for binding and koff for leaving, where koff = kon times Kd. The binding releases dH kcal per mole of complex formed, negative when heat is released. Some systems bind slowly. The ligand associates with itself in solution. Diluting it releases or absorbs heat. A titration can carry a further heat per microlitre injected that is the same for every injection and is not present in its control.
+
+5. The report
+`itcreduce.py` is run as `python3 /app/itcreduce.py BATCH_DIR REPORT_JSON` in a fresh interpreter, with a limit of 600 seconds for the whole batch, and writes `REPORT_JSON`: `{"experiments": [{"id": "E01", "kd_um": 6.2, "dh_kcal_mol": -9.96, "n": 0.98, "kon_per_m_s": 1490.0}, ...]}` with one entry per line of the run log: Kd in micromolar, dH in kcal/mol, n in sites per host molecule, kon in 1/(M s). A value counts as correct when its relative error is at most 15 percent for `kd_um`, 3.5 percent for `dh_kcal_mol` and `n`, and 6.5 percent for `kon_per_m_s`; an experiment counts as correct when all four do. `/app/worked/` is the batch of an earlier session, and its `reported.json` holds the values the lab reported for its five experiments in the same format. The interpreter is Python 3.12 with numpy and scipy.

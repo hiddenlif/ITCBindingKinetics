@@ -1,0 +1,6 @@
+exp	titration	control	heater	host_um	ligand_um
+E01	E01_tit.itc	E01_ctl.itc	H01.itc	88.40	921.62
+E02	E02_tit.itc	E02_ctl.itc	H01.itc	82.52	925.85
+E03	E03_tit.itc	E03_ctl.itc	H01.itc	60.23	712.32
+E04	E04_tit.itc	E04_ctl.itc	H01.itc	108.43	1337.62
+E05	E05_tit.itc	E05_ctl.itc	H01.itc	77.84	832.50
