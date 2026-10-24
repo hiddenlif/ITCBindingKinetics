@@ -1,4 +1,4 @@
-# Scientific Analysis: ITC binding kinetics
+# Scientific Analysis Task: ITC Binding Kinetics
 
 Estimate binding affinity, enthalpy, stoichiometry and association rates from supplied synthetic calorimetry exports. This task analyzes fixed traces; it does not provide interactive experimental acquisition.
 
